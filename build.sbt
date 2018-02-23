@@ -17,3 +17,4 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser" % "0.8.0")
 
 unmanagedJars in Compile += file(baseDirectory.value + "/lib/dockerwrapper.jar")
+unmanagedJars in Compile += file(baseDirectory.value + "/lib/BasicInfrastructure.jar")

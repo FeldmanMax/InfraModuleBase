@@ -9,7 +9,7 @@ development() {
     elif [ $command_name = "clean_test" ]
     then echo "Running Clean\n" && sbt clean && echo "\nRunning Test\n" && sbt test
     elif [ $command_name = "compile" ]
-    then echo "Running Compile Sequence\n" && echo "Running Clean sbt clean" && sbt clean && echo "Running Compile sbt compile" && sbt compile
+    then echo "Running Compile Sequence\n" && echo "Running Clean sbt clean (1/2)\n" && sbt clean && echo "\nRunning Compile sbt compile (2/2)\n" && sbt compile
     else echo "The command ---> $command_name <--- is NOT supported. \nPlease use one of the following: all, compile, test\n"
     fi
 }

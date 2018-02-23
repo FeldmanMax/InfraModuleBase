@@ -70,8 +70,8 @@ class HttpCallTest extends FunSuite with DockerExecutor with HttpBase with Befor
       case Right(_) => errors_collector = errors_collector ::: List[String]("Should have failed")
       case Left(exception) => exception match {
         case ex: HttpGeneralException[String] =>
-          val request: KeyValue[String] = ex.keyValue.find(x=>x.key == "request").getOrElse(KeyValue[String]("", ""))
-          val error: KeyValue[String] = ex.keyValue.find(x=>x.key == "error").getOrElse(KeyValue[String]("", ""))
+          val request: KeyValue[String] = ex.key_value_list.find(x=>x.key == "request").getOrElse(KeyValue[String]("", ""))
+          val error: KeyValue[String] = ex.key_value_list.find(x=>x.key == "error").getOrElse(KeyValue[String]("", ""))
           if(request.value != metadata.toString)  errors_collector = errors_collector ::: List(s"Expected: ${metadata.toString}\nActual: ${request.value}\n")
           if(error.value != "Read timed out")     errors_collector = errors_collector ::: List(s"Expected: Read timed out\nActual: ${error.value}\n")
         case ex: Exception => Left(ex.toString)
