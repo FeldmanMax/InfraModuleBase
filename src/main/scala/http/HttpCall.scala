@@ -15,7 +15,8 @@ trait HttpCallApi {
 }
 
 class HttpCall @Inject()() extends HttpCallApi {
-  def get(request: HttpRequestMetadata): Either[Exception, HttpResponse[String]] = {
+  def
+  get(request: HttpRequestMetadata): Either[Exception, HttpResponse[String]] = {
     try {
       isValidRequest(request) match {
         case Left(message) =>
