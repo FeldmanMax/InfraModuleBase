@@ -20,7 +20,7 @@ class HttpCall @Inject()() extends HttpCallApi {
     try {
       isValidRequest(request) match {
         case Left(message) =>
-          Left(HttpInvalidRequest(List(KeyValue[String]("request", request.toString),
+          ApplicationLogger.errorLeft(HttpInvalidRequest(List(KeyValue[String]("request", request.toString),
                                        KeyValue[String]("error", message))))
         case Right(_) => {
           val asString: HttpResponse[String] = getImpl(request)
@@ -30,9 +30,9 @@ class HttpCall @Inject()() extends HttpCallApi {
     }
     catch {
       case ex: Exception =>
-        ApplicationLogger.error(ex)
-        Left(HttpGeneralException(List(KeyValue[String]("request", request.toString),
-          KeyValue[String]("error", ex.getMessage))))
+        val exception: HttpGeneralException[String] = HttpGeneralException(List(KeyValue[String]("request", request.toString),
+          KeyValue[String]("error", ex.getMessage)))
+        ApplicationLogger.errorLeft(exception)
     }
   }
 
