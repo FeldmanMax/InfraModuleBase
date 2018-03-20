@@ -15,8 +15,7 @@ trait HttpCallApi {
 }
 
 class HttpCall @Inject()() extends HttpCallApi {
-  def
-  get(request: HttpRequestMetadata): Either[Exception, HttpResponse[String]] = {
+  def get(request: HttpRequestMetadata): Either[Exception, HttpResponse[String]] = {
     try {
       isValidRequest(request) match {
         case Left(message) =>
@@ -37,6 +36,7 @@ class HttpCall @Inject()() extends HttpCallApi {
   }
 
   private def getImpl(request: HttpRequestMetadata) = {
+    ApplicationLogger.info(request)
     val asString: HttpResponse[String] = Http(request.uri).params(request.params).
       options(List(HttpOptions.connTimeout(request.connTimeoutInMillis), HttpOptions.readTimeout(request.readTimeoutInMillis))).asString
     asString
